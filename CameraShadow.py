@@ -29,18 +29,18 @@ def get_devices():
         dev_port +=1
     return
 
-def show_webcam(mirror=False,camnumber=0):
+def show_webcam(mirror=False,camnumber=0,width=1920,height=1080,desktopxloc=0,desktopyloc=0,windowname="Camera Shadow"):
     cam = cv2.VideoCapture(camnumber)   
-    cam.set(3,1920)
-    cam.set(4,1080)
+    cam.set(3,width)
+    cam.set(4,height)
     while True:
         ret_val, img = cam.read()
         if mirror: 
             img = cv2.flip(img, 1)
-        cv2.namedWindow('Camera Shadow',cv2.WND_PROP_FULLSCREEN)
-        cv2.setWindowProperty('Camera Shadow',cv2.WND_PROP_FULLSCREEN,cv2.WINDOW_FULLSCREEN)
-        cv2.moveWindow('Camera Shadow',-1040,2160)  # Adjust this for WHICH Monitor you need it on
-        cv2.imshow('Camera Shadow', img)
+        cv2.namedWindow(windowname,cv2.WND_PROP_FULLSCREEN)
+        cv2.setWindowProperty(windowname,cv2.WND_PROP_FULLSCREEN,cv2.WINDOW_FULLSCREEN)
+        cv2.moveWindow(windowname,desktopxloc,desktopyloc)  # Adjust this for WHICH Monitor you need it on
+        cv2.imshow(windowname,img)
         if cv2.waitKey(1) == 27: 
             break  # esc to quit
     cv2.destroyAllWindows()
@@ -48,7 +48,7 @@ def show_webcam(mirror=False,camnumber=0):
 
 def main():
     #get_devices()
-    show_webcam(mirror=False,camnumber=0)
+    show_webcam()
 
 
 if __name__ == '__main__':
